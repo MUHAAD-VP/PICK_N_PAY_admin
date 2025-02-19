@@ -107,7 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         CustomTextFormField(
                             labelText: 'Password',
                             controller: _passwordController,
-                            suffixIconData: Icons.visibility,
                             validator: notEmptyValidator),
                         const SizedBox(height: 40),
                         CustomButton(

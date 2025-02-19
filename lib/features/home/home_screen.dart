@@ -97,19 +97,6 @@ class _HomeScreenState extends State<HomeScreen>
                   const SizedBox(height: 20),
                   CustomDrawerItem(
                     iconColor:
-                        tabController.index == 2 ? Colors.orange : Colors.black,
-                    textColor:
-                        tabController.index == 2 ? Colors.orange : Colors.black,
-                    isSelected: tabController.index == 2,
-                    title: 'Category Screen',
-                    icon: Icons.category_outlined,
-                    ontap: () {
-                      tabController.animateTo(2);
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  CustomDrawerItem(
-                    iconColor:
                         tabController.index == 3 ? Colors.orange : Colors.black,
                     textColor:
                         tabController.index == 3 ? Colors.orange : Colors.black,
@@ -118,6 +105,19 @@ class _HomeScreenState extends State<HomeScreen>
                     icon: Icons.border_all,
                     ontap: () {
                       tabController.animateTo(3);
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  CustomDrawerItem(
+                    iconColor:
+                        tabController.index == 2 ? Colors.orange : Colors.black,
+                    textColor:
+                        tabController.index == 2 ? Colors.orange : Colors.black,
+                    isSelected: tabController.index == 2,
+                    title: 'Category Screen',
+                    icon: Icons.category_outlined,
+                    ontap: () {
+                      tabController.animateTo(2);
                     },
                   ),
                   const SizedBox(height: 20),
@@ -161,8 +161,8 @@ class _HomeScreenState extends State<HomeScreen>
               children: const [
                 DashboardScreen(),
                 ShopScreen(),
-                CategoryScreen(),
                 OrderScreen(),
+                CategoryScreen(),
               ],
             ),
           ),
