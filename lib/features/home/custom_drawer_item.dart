@@ -27,28 +27,31 @@ class CustomDrawerItem extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
         ),
-        child: Row(
-          children: [
-            if (isSelected)
-              Container(
-                width: 3,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.orange, // Indicator color
-                  borderRadius: BorderRadius.circular(5),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              if (isSelected)
+                Container(
+                  width: 3,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.orange, // Indicator color
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                 ),
+              const SizedBox(width: 10),
+              Icon(icon, color: iconColor),
+              const SizedBox(width: 10),
+              Text(
+                title,
+                style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15),
               ),
-            const SizedBox(width: 10),
-            Icon(icon, color: iconColor),
-            const SizedBox(width: 10),
-            Text(
-              title,
-              style: TextStyle(
-                  color: textColor,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 15),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

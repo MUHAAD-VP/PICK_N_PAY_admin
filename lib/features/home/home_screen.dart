@@ -41,34 +41,26 @@ class _HomeScreenState extends State<HomeScreen>
                 BoxShadow(
                   color: Colors.black.withOpacity(0.3), // Soft shadow
                   blurRadius: 10, // Spread of the shadow
-                  offset: Offset(3, 3), // Positioning
+                  offset: const Offset(3, 3), // Positioning
                 ),
               ],
             ),
-            width: 230,
+            width: 210,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 50),
               child: Column(
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.center,
                     child: Text(
                       'PICK N PAY',
                       style: TextStyle(
-                          color: Colors.green[300],
+                          color: Colors.lightGreenAccent,
                           fontSize: 25,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  const SizedBox(height: 25),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Divider(
-                      color: Colors.grey[300],
-                      thickness: 2,
-                    ),
-                  ),
-                  const SizedBox(height: 35),
+                  const SizedBox(height: 60),
                   CustomDrawerItem(
                     title: 'Dashboard',
                     icon: Icons.dashboard_outlined,
@@ -97,27 +89,27 @@ class _HomeScreenState extends State<HomeScreen>
                   const SizedBox(height: 20),
                   CustomDrawerItem(
                     iconColor:
-                        tabController.index == 3 ? Colors.orange : Colors.black,
+                        tabController.index == 2 ? Colors.orange : Colors.black,
                     textColor:
-                        tabController.index == 3 ? Colors.orange : Colors.black,
-                    isSelected: tabController.index == 3,
+                        tabController.index == 2 ? Colors.orange : Colors.black,
+                    isSelected: tabController.index == 2,
                     title: 'Order Screen',
                     icon: Icons.border_all,
                     ontap: () {
-                      tabController.animateTo(3);
+                      tabController.animateTo(2);
                     },
                   ),
                   const SizedBox(height: 20),
                   CustomDrawerItem(
                     iconColor:
-                        tabController.index == 2 ? Colors.orange : Colors.black,
+                        tabController.index == 3 ? Colors.orange : Colors.black,
                     textColor:
-                        tabController.index == 2 ? Colors.orange : Colors.black,
-                    isSelected: tabController.index == 2,
+                        tabController.index == 3 ? Colors.orange : Colors.black,
+                    isSelected: tabController.index == 3,
                     title: 'Category Screen',
                     icon: Icons.category_outlined,
                     ontap: () {
-                      tabController.animateTo(2);
+                      tabController.animateTo(3);
                     },
                   ),
                   const SizedBox(height: 20),

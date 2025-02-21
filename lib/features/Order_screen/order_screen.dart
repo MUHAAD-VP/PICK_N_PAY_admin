@@ -1,10 +1,90 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:pick_n_pay/common_widget/custom_search.dart';
+import 'package:pick_n_pay/features/Order_screen/order_detail_screen.dart';
+import 'package:pick_n_pay/theme/app_theme.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const Text(
+                'Orders',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              Expanded(
+                child: CustomSearch(
+                  onSearch: (value) {
+                    // Implement search functionality
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 30), // Added spacing
+          Expanded(
+            child: DataTable2(
+              columnSpacing: 12,
+              horizontalMargin: 12,
+              minWidth: 1200,
+              columns: const [
+                DataColumn(label: Text('Order Id')),
+                DataColumn(label: Text('User Name')),
+                DataColumn(label: Text('Shop Name')),
+                DataColumn(label: Text('Shop ID')),
+                DataColumn(label: Text('Status')),
+                DataColumn(label: Text('PickUp time')),
+                DataColumn(label: Text('Order Details'), numeric: true),
+              ],
+              rows: [
+                DataRow(cells: [
+                  const DataCell(Text('#4244')),
+                  const DataCell(Text('Sukumaran')),
+                  const DataCell(Text('Suku"s Shop')),
+                  const DataCell(Text('#AD3453')),
+                  const DataCell(Text('PENDING')),
+                  const DataCell(Text('6.00pm')),
+                  DataCell(GestureDetector(
+                    onTap: () {
+//Order detail screeen
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OrderDetailScreen(),
+                          ));
+                    },
+                    child: Material(
+                      borderRadius: BorderRadiusDirectional.circular(20),
+                      color: primaryColor,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        child: Text(
+                          'View',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall!
+                              .copyWith(
+                                  color: onprimaryColor,
+                                  fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  )),
+                ]),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
