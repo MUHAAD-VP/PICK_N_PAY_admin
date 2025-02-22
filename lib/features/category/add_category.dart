@@ -18,9 +18,12 @@ class AddCategory extends StatelessWidget {
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Add category Image',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(fontWeight: FontWeight.normal),
           ),
           const SizedBox(
             height: 15,
@@ -33,9 +36,12 @@ class AddCategory extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Text(
+          Text(
             'Add category Name',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(fontWeight: FontWeight.normal),
           ),
           const SizedBox(
             height: 15,

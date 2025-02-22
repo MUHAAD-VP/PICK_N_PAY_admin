@@ -2,7 +2,9 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:pick_n_pay/common_widget/custom_button.dart';
 import 'package:pick_n_pay/common_widget/custom_search.dart';
+import 'package:pick_n_pay/common_widget/custom_view_button.dart';
 import 'package:pick_n_pay/features/shop/add_shop.dart';
+import 'package:pick_n_pay/features/shop/shop_detail_screen.dart';
 
 class ShopScreen extends StatelessWidget {
   const ShopScreen({super.key});
@@ -15,9 +17,12 @@ class ShopScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text(
+              Text(
                 'Shops',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
               const Spacer(),
               Expanded(
@@ -50,30 +55,28 @@ class ShopScreen extends StatelessWidget {
               minWidth: 1200,
               columns: const [
                 DataColumn(label: Text('Shop Name')),
-                DataColumn(label: Text('Building No')),
-                DataColumn(label: Text('Street Name')),
-                DataColumn(label: Text('City')),
-                DataColumn(label: Text('District')),
-                DataColumn(label: Text('State')),
-                DataColumn(label: Text('Pincode')),
                 DataColumn(label: Text('Phone No')),
+                DataColumn(label: Text('Image URL')),
                 DataColumn(label: Text('Email')),
                 DataColumn(label: Text('Location')),
-                DataColumn(label: Text('Image URL'), numeric: true),
+                DataColumn(label: Text('Shop Details'), numeric: true),
               ],
-              rows: const [
+              rows: [
                 DataRow(cells: [
-                  DataCell(Text('ABC Store')),
-                  DataCell(Text('123')),
-                  DataCell(Text('Main Street')),
-                  DataCell(Text('New York')),
-                  DataCell(Text('Manhattan')),
-                  DataCell(Text('NY')),
-                  DataCell(Text('10001')),
-                  DataCell(Text('+1 234 567 8901')),
-                  DataCell(Text('abc@store.com')),
-                  DataCell(Text('https://maps.example.com')),
-                  DataCell(Text('https://image.example.com')),
+                  const DataCell(Text('ABC Store')),
+                  const DataCell(Text('+1 234 567 8901')),
+                  const DataCell(Text('https://image.example.com')),
+                  const DataCell(Text('abc@store.com')),
+                  const DataCell(Text('https://maps.example.com')),
+                  DataCell(CustomViewButton(
+                    ontap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ShopDetailScreen(),
+                          ));
+                    },
+                  )),
                 ]),
               ],
             ),

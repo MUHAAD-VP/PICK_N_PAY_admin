@@ -50,9 +50,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
         children: [
           Row(
             children: [
-              const Text(
+              Text(
                 'Categories',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
               const Spacer(),
               Expanded(

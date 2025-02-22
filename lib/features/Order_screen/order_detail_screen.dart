@@ -105,9 +105,9 @@ class OrderDetailScreen extends StatelessWidget {
                             color: Colors.black54, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                          'Count: ${item['count']} | Price: \$${item['price']}'),
+                          'Count: ${item['count']} | Price: ₹${item['price']}'),
                       trailing: Text(
-                        'Total: \$${itemTotal.toStringAsFixed(2)}',
+                        'Total: ₹${itemTotal.toStringAsFixed(2)}',
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Colors.black87, fontWeight: FontWeight.bold),
                       ),
@@ -120,7 +120,7 @@ class OrderDetailScreen extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'Total Amount: \$${totalPrice.toStringAsFixed(2)}',
+                'Total Amount: ₹${totalPrice.toStringAsFixed(2)}',
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!

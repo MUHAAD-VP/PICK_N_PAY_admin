@@ -1,8 +1,8 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:pick_n_pay/common_widget/custom_search.dart';
+import 'package:pick_n_pay/common_widget/custom_view_button.dart';
 import 'package:pick_n_pay/features/Order_screen/order_detail_screen.dart';
-import 'package:pick_n_pay/theme/app_theme.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -15,9 +15,12 @@ class OrderScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text(
+              Text(
                 'Orders',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
               const Spacer(),
               Expanded(
@@ -52,32 +55,14 @@ class OrderScreen extends StatelessWidget {
                   const DataCell(Text('#AD3453')),
                   const DataCell(Text('PENDING')),
                   const DataCell(Text('6.00pm')),
-                  DataCell(GestureDetector(
-                    onTap: () {
-//Order detail screeen
+                  DataCell(CustomViewButton(
+                    ontap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const OrderDetailScreen(),
                           ));
                     },
-                    child: Material(
-                      borderRadius: BorderRadiusDirectional.circular(20),
-                      color: primaryColor,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        child: Text(
-                          'View',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall!
-                              .copyWith(
-                                  color: onprimaryColor,
-                                  fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                    ),
                   )),
                 ]),
               ],

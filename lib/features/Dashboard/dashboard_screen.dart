@@ -21,7 +21,7 @@ class DashboardScreen extends StatelessWidget {
               DashboardItem(
                   label: 'Total Revenue',
                   value: '45',
-                  iconData: Icons.attach_money_outlined),
+                  iconData: Icons.currency_rupee),
               DashboardItem(
                   label: 'Total Category',
                   value: '45',

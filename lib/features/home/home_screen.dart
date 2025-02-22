@@ -6,6 +6,7 @@ import 'package:pick_n_pay/features/category/category_screen.dart';
 import 'package:pick_n_pay/features/home/custom_drawer_item.dart';
 import 'package:pick_n_pay/features/login/login_screeen.dart';
 import 'package:pick_n_pay/features/shop/shop_screen.dart';
+import 'package:pick_n_pay/theme/app_theme.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -50,14 +51,16 @@ class _HomeScreenState extends State<HomeScreen>
               padding: const EdgeInsets.symmetric(vertical: 50),
               child: Column(
                 children: [
-                  const Align(
+                  Align(
                     alignment: Alignment.center,
                     child: Text(
                       'PICK N PAY',
-                      style: TextStyle(
-                          color: Colors.lightGreenAccent,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                          .copyWith(
+                              color: secondaryColor,
+                              fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(height: 60),
