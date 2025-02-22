@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pick_n_pay/common_widget/custom_search.dart';
 import 'package:pick_n_pay/common_widget/custom_view_button.dart';
 import 'package:pick_n_pay/features/Order_screen/order_detail_screen.dart';
+import 'package:pick_n_pay/theme/app_theme.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -17,10 +18,8 @@ class OrderScreen extends StatelessWidget {
             children: [
               Text(
                 'Orders',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold, color: secondaryColor),
               ),
               const Spacer(),
               Expanded(

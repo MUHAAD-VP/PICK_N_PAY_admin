@@ -5,6 +5,7 @@ import 'package:pick_n_pay/common_widget/custom_search.dart';
 import 'package:pick_n_pay/common_widget/custom_view_button.dart';
 import 'package:pick_n_pay/features/shop/add_shop.dart';
 import 'package:pick_n_pay/features/shop/shop_detail_screen.dart';
+import 'package:pick_n_pay/theme/app_theme.dart';
 
 class ShopScreen extends StatelessWidget {
   const ShopScreen({super.key});
@@ -19,10 +20,8 @@ class ShopScreen extends StatelessWidget {
             children: [
               Text(
                 'Shops',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall!
-                    .copyWith(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    fontWeight: FontWeight.bold, color: secondaryColor),
               ),
               const Spacer(),
               Expanded(
@@ -36,6 +35,7 @@ class ShopScreen extends StatelessWidget {
                 width: 10,
               ),
               CustomButton(
+                inverse: true,
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -59,7 +59,8 @@ class ShopScreen extends StatelessWidget {
                 DataColumn(label: Text('Image URL')),
                 DataColumn(label: Text('Email')),
                 DataColumn(label: Text('Location')),
-                DataColumn(label: Text('Shop Details'), numeric: true),
+                DataColumn(label: Text('Shop Details')),
+                DataColumn(label: Text('Action'), numeric: true),
               ],
               rows: [
                 DataRow(cells: [
@@ -76,6 +77,25 @@ class ShopScreen extends StatelessWidget {
                             builder: (context) => const ShopDetailScreen(),
                           ));
                     },
+                  )),
+                  DataCell(Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.edit,
+                            color: Colors.blue,
+                          )),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.orange,
+                          ))
+                    ],
                   )),
                 ]),
               ],

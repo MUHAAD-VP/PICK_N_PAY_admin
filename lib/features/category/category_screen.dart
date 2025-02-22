@@ -3,6 +3,7 @@ import 'package:pick_n_pay/common_widget/custom_button.dart';
 import 'package:pick_n_pay/common_widget/custom_search.dart';
 import 'package:pick_n_pay/features/category/add_category.dart';
 import 'package:pick_n_pay/features/category/category_card.dart';
+import 'package:pick_n_pay/theme/app_theme.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -52,10 +53,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
             children: [
               Text(
                 'Categories',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold, color: secondaryColor),
               ),
               const Spacer(),
               Expanded(
@@ -65,6 +64,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
               const SizedBox(width: 10),
               CustomButton(
+                inverse: true,
                 onPressed: () {
                   showDialog(
                     context: context,
