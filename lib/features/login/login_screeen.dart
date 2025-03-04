@@ -69,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
             return Center(
               child: Container(
                 width: 400,
-                height: 500,
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(30),
@@ -79,13 +78,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Form(
                     key: _formKey,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Center(
                           child: Image(
-                              height: 200,
-                              width: 200,
+                              height: 100,
+                              width: 100,
                               image: AssetImage(
                                 'assets/images/p&plogo.png',
                               )),
@@ -96,15 +96,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text(
                           "Admin Login",
                           style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 15.0),
                         CustomTextFormField(
-                            labelText: 'Email',
-                            controller: _emailController,
-                            validator: emailValidator),
+                          labelText: 'Email',
+                          controller: _emailController,
+                          validator: emailValidator,
+                          isLoading: state is LoginLoadingState,
+                        ),
                         const SizedBox(height: 15.0),
                         CustomTextFormField(
+                            isLoading: state is LoginLoadingState,
                             labelText: 'Password',
                             controller: _passwordController,
                             validator: notEmptyValidator),

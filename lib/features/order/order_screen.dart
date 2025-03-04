@@ -2,67 +2,63 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/web.dart';
-import 'package:pick_n_pay/common_widget/custom_button.dart';
 import 'package:pick_n_pay/common_widget/custom_search.dart';
-import 'package:pick_n_pay/common_widget/custom_view_button.dart';
-import 'package:pick_n_pay/features/shop/add_shop.dart';
-import 'package:pick_n_pay/features/shop/shop_detail_screen.dart';
-import 'package:pick_n_pay/features/shop/shop_bloc/shop_bloc.dart';
+import 'package:pick_n_pay/features/order/order_bloc/order_bloc.dart';
 import 'package:pick_n_pay/theme/app_theme.dart';
 
 import '../../common_widget/custom_alert_dialog.dart';
 
-class ShopScreen extends StatefulWidget {
-  const ShopScreen({super.key});
+class OrderScreen extends StatefulWidget {
+  const OrderScreen({super.key});
 
   @override
-  State<ShopScreen> createState() => _ShopScreenState();
+  State<OrderScreen> createState() => _OrderScreenState();
 }
 
-class _ShopScreenState extends State<ShopScreen> {
-  final ShopBloc _shopBloc = ShopBloc();
+class _OrderScreenState extends State<OrderScreen> {
+  final OrderBloc _orderBloc = OrderBloc();
 
   Map<String, dynamic> params = {
     'query': null,
   };
 
-  List<Map> _shops = [];
+  List<Map> _orders = [];
 
   @override
   void initState() {
-    getShops();
+    getOrders();
     super.initState();
   }
 
-  void getShops() {
-    _shopBloc.add(GetAllShopsEvent(params: params));
+  void getOrders() {
+    _orderBloc.add(GetAllOrdersEvent(params: params));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _shopBloc,
-      child: BlocConsumer<ShopBloc, ShopState>(
+      value: _orderBloc,
+      child: BlocConsumer<OrderBloc, OrderState>(
         listener: (context, state) {
-          if (state is ShopFailureState) {
+          if (state is OrderFailureState) {
             showDialog(
               context: context,
               builder: (context) => CustomAlertDialog(
                 title: 'Failure',
-                description: state.message,
+                description: 'Failed to load orders. Please try again.',
                 primaryButton: 'Try Again',
                 onPrimaryPressed: () {
-                  getShops();
+                  getOrders();
                   Navigator.pop(context);
                 },
               ),
             );
-          } else if (state is ShopGetSuccessState) {
-            _shops = state.shops;
-            Logger().w(_shops);
+          } else if (state is OrderGetSuccessState) {
+            _orders = state.orders;
+            Logger().w(_orders);
             setState(() {});
-          } else if (state is ShopSuccessState) {
-            getShops();
+          } else if (state is OrderSuccessState) {
+            getOrders();
           }
         },
         builder: (context, state) {
@@ -73,7 +69,7 @@ class _ShopScreenState extends State<ShopScreen> {
                 Row(
                   children: [
                     Text(
-                      'Shops',
+                      'Orders',
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall!
@@ -86,44 +82,30 @@ class _ShopScreenState extends State<ShopScreen> {
                       child: CustomSearch(
                         onSearch: (value) {
                           params['query'] = value;
-                          getShops();
+                          getOrders();
                         },
                       ),
                     ),
                     const SizedBox(width: 10),
-                    CustomButton(
-                      inverse: true,
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => BlocProvider.value(
-                            value: _shopBloc,
-                            child: AddEditShop(),
-                          ),
-                        );
-                      },
-                      label: 'Add Shop',
-                      iconData: Icons.add,
-                    )
                   ],
                 ),
                 const SizedBox(height: 30),
-                if (state is ShopLoadingState)
+                if (state is OrderLoadingState)
                   const Center(child: CircularProgressIndicator()),
-                if (state is ShopGetSuccessState && _shops.isEmpty)
-                  const Center(child: Text('No Shops Found')),
-                if (state is ShopGetSuccessState && _shops.isNotEmpty)
+                if (state is OrderGetSuccessState && _orders.isEmpty)
+                  const Center(child: Text('No Orders Found')),
+                if (state is OrderGetSuccessState && _orders.isNotEmpty)
                   Expanded(
                     child: DataTable2(
                       columnSpacing: 12,
                       horizontalMargin: 12,
                       minWidth: 1200,
                       columns: const [
-                        DataColumn(label: Text('ID')),
-                        DataColumn(label: Text('Shop Name')),
-                        DataColumn(label: Text('Phone No')),
-                        DataColumn(label: Text('Email')),
-                        DataColumn(label: Text('Shop Details')),
+                        DataColumn(label: Text('Order ID')),
+                        DataColumn(label: Text('Customer Name')),
+                        DataColumn(label: Text('Total Amount')),
+                        DataColumn(label: Text('Order Date')),
+                        DataColumn(label: Text('Status')),
                         DataColumn(
                           label: Align(
                               alignment: Alignment.centerRight,
@@ -131,44 +113,24 @@ class _ShopScreenState extends State<ShopScreen> {
                         ),
                       ],
                       rows: List.generate(
-                        _shops.length,
+                        _orders.length,
                         (index) {
                           return DataRow(
                             cells: [
-                              DataCell(Text(_shops[index]['id'].toString())),
-                              DataCell(Text(_shops[index]['name'])),
-                              DataCell(Text(_shops[index]['phone'])),
-                              DataCell(Text(_shops[index]['contact_email'])),
                               DataCell(
-                                CustomViewButton(
-                                  ontap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ShopDetailScreen(
-                                          shopDetails: _shops[index],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
+                                  Text(_orders[index]['order_id'].toString())),
+                              DataCell(Text(_orders[index]['customer_name'])),
+                              DataCell(Text(
+                                  _orders[index]['total_amount'].toString())),
+                              DataCell(Text(_orders[index]['order_date'])),
+                              DataCell(Text(_orders[index]['status'])),
                               DataCell(
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              BlocProvider.value(
-                                            value: _shopBloc,
-                                            child: AddEditShop(
-                                              shopDetails: _shops[index],
-                                            ),
-                                          ),
-                                        );
+                                        // Edit order functionality
                                       },
                                       icon: const Icon(
                                         Icons.edit,
@@ -182,14 +144,14 @@ class _ShopScreenState extends State<ShopScreen> {
                                           context: context,
                                           builder: (context) =>
                                               CustomAlertDialog(
-                                            title: 'Delete Shop',
+                                            title: 'Delete Order',
                                             description:
-                                                'Are you sure you want to delete this shop?',
+                                                'Are you sure you want to delete this order?',
                                             primaryButton: 'Yes',
                                             onPrimaryPressed: () {
-                                              _shopBloc.add(
-                                                DeleteShopEvent(
-                                                  shopId: _shops[index]['id'],
+                                              _orderBloc.add(
+                                                DeleteOrderEvent(
+                                                  orderId: _orders[index]['id'],
                                                 ),
                                               );
                                               Navigator.pop(context);
