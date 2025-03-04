@@ -5,6 +5,7 @@ import 'package:pick_n_pay/features/category/category_screen.dart';
 import 'package:pick_n_pay/features/home/custom_drawer_item.dart';
 import 'package:pick_n_pay/features/login/login_screeen.dart';
 import 'package:pick_n_pay/features/shop/shop_screen.dart';
+import 'package:pick_n_pay/features/users/user_management.dart';
 import 'package:pick_n_pay/theme/app_theme.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen>
   late TabController tabController;
   @override
   void initState() {
-    tabController = TabController(length: 4, vsync: this, initialIndex: 0);
+    tabController = TabController(length: 5, vsync: this, initialIndex: 0);
     tabController.addListener(() {
       setState(() {});
     });
@@ -118,9 +119,22 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   const SizedBox(height: 20),
                   CustomDrawerItem(
+                    iconColor:
+                        tabController.index == 4 ? Colors.orange : Colors.black,
+                    textColor:
+                        tabController.index == 4 ? Colors.orange : Colors.black,
+                    isSelected: tabController.index == 4,
+                    title: 'Users',
+                    icon: Icons.people_outline,
+                    ontap: () {
+                      tabController.animateTo(4);
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  CustomDrawerItem(
                     iconColor: Colors.red,
                     textColor: Colors.red,
-                    isSelected: tabController.index == 4,
+                    isSelected: tabController.index == 5,
                     title: 'LogOut',
                     icon: Icons.logout,
                     ontap: () {
@@ -159,6 +173,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ShopScreen(),
                 OrderScreen(),
                 CategoryScreen(),
+                UserManagementSection()
               ],
             ),
           ),
