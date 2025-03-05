@@ -7,6 +7,7 @@ import 'package:pick_n_pay/features/order/order_bloc/order_bloc.dart';
 import 'package:pick_n_pay/theme/app_theme.dart';
 
 import '../../common_widget/custom_alert_dialog.dart';
+import '../../util/format_function.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -103,8 +104,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       columns: const [
                         DataColumn(label: Text('Order ID')),
                         DataColumn(label: Text('Customer Name')),
-                        DataColumn(label: Text('Total Amount')),
-                        DataColumn(label: Text('Order Date')),
+                        DataColumn(label: Text('Created At')),
                         DataColumn(label: Text('Status')),
                         DataColumn(
                           label: Align(
@@ -117,12 +117,11 @@ class _OrderScreenState extends State<OrderScreen> {
                         (index) {
                           return DataRow(
                             cells: [
-                              DataCell(
-                                  Text(_orders[index]['order_id'].toString())),
-                              DataCell(Text(_orders[index]['customer_name'])),
+                              DataCell(Text(_orders[index]['id'].toString())),
+                              DataCell(Text(formatValue(
+                                  _orders[index]['customers']['name']))),
                               DataCell(Text(
-                                  _orders[index]['total_amount'].toString())),
-                              DataCell(Text(_orders[index]['order_date'])),
+                                  formatDate(_orders[index]['created_at']))),
                               DataCell(Text(_orders[index]['status'])),
                               DataCell(
                                 Row(
