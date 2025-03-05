@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/web.dart';
 import 'package:pick_n_pay/common_widget/custom_search.dart';
+import 'package:pick_n_pay/features/Order_screen/order_detail_screen.dart';
 import 'package:pick_n_pay/features/order/order_bloc/order_bloc.dart';
 import 'package:pick_n_pay/theme/app_theme.dart';
 
 import '../../common_widget/custom_alert_dialog.dart';
+import '../../common_widget/custom_button.dart';
 import '../../util/format_function.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -124,52 +126,63 @@ class _OrderScreenState extends State<OrderScreen> {
                                   formatDate(_orders[index]['created_at']))),
                               DataCell(Text(_orders[index]['status'])),
                               DataCell(
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        // Edit order functionality
-                                      },
-                                      icon: const Icon(
-                                        Icons.edit,
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
+                                  // Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                  //   children: [
+                                  //     IconButton(
+                                  //       onPressed: () {
+                                  //         // Edit order functionality
+                                  //       },
+                                  //       icon: const Icon(
+                                  //         Icons.edit,
+                                  //         color: Colors.blue,
+                                  //       ),
+                                  //     ),
+                                  //     const SizedBox(width: 5),
+                                  //     IconButton(
+                                  //       onPressed: () {
+                                  //         showDialog(
+                                  //           context: context,
+                                  //           builder: (context) =>
+                                  //               CustomAlertDialog(
+                                  //             title: 'Delete Order',
+                                  //             description:
+                                  //                 'Are you sure you want to delete this order?',
+                                  //             primaryButton: 'Yes',
+                                  //             onPrimaryPressed: () {
+                                  //               _orderBloc.add(
+                                  //                 DeleteOrderEvent(
+                                  //                   orderId: _orders[index]['id'],
+                                  //                 ),
+                                  //               );
+                                  //               Navigator.pop(context);
+                                  //             },
+                                  //             secondaryButton: 'No',
+                                  //             onSecondaryPressed: () {
+                                  //               Navigator.pop(context);
+                                  //             },
+                                  //           ),
+                                  //         );
+                                  //       },
+                                  //       icon: const Icon(
+                                  //         Icons.delete,
+                                  //         color: Colors.orange,
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  CustomButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
                                           builder: (context) =>
-                                              CustomAlertDialog(
-                                            title: 'Delete Order',
-                                            description:
-                                                'Are you sure you want to delete this order?',
-                                            primaryButton: 'Yes',
-                                            onPrimaryPressed: () {
-                                              _orderBloc.add(
-                                                DeleteOrderEvent(
-                                                  orderId: _orders[index]['id'],
-                                                ),
-                                              );
-                                              Navigator.pop(context);
-                                            },
-                                            secondaryButton: 'No',
-                                            onSecondaryPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        );
-                                      },
-                                      icon: const Icon(
-                                        Icons.delete,
-                                        color: Colors.orange,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                              OrderDetailsPage(
+                                                  orderDetails:
+                                                      _orders[index])));
+                                },
+                                label: 'View Details',
+                              )),
                             ],
                           );
                         },
